@@ -1,32 +1,64 @@
 <template>
-    <v-layout row wrap>
-        <v-flex xs4 offset-xs4>
-            <!-- Query-->
-            <v-text-field
-              name="input-1"
-              label="Search Query"
-              v-model="query"
-            ></v-text-field>
-            <!-- Country -->
-            <v-text-field
-              name="input-1"
-              label="Country"
-              v-model="country"
-              @input="triggerQuery('country')"
-            ></v-text-field>
-            <suggestion-dropdown type="country" :suggestionArray="countrySuggestions" v-if="Object.keys(countrySuggestions).length !== 0" @selected="selectItem"></suggestion-dropdown>
-            <!-- City -->
-            <v-text-field
-              name="input-1"
-              label="City"
-              v-model="city"
-              @input="triggerQuery('city')"
-            ></v-text-field>
-            <suggestion-dropdown type="city" :suggestionArray="citySuggestions" v-if="Object.keys(citySuggestions).length !== 0" @selected="selectItem"></suggestion-dropdown>
-            <!-- Go -->
-            <v-btn block class="success" @click="search()">Start Search</v-btn>
-        </v-flex>
+  <div>
+    <v-layout row wrap class="mb-4">
+      <v-flex xs10 offset-xs1>
+        <!-- Query-->
+        <v-text-field
+          name="input-1"
+          label="Search Query"
+          v-model="query"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs3 offset-xs2>
+        <!-- Google Maps Search Button -->
+        <v-btn block class="success">Search Maps</v-btn>
+      </v-flex>
+      <v-flex xs3 offset-xs2>
+        <!-- Google Search Button -->
+        <v-btn block class="success" @click="search()">Start Search</v-btn>
+      </v-flex>
     </v-layout>
+
+    <!-- Search Options -->
+    <v-layout row wrap class="text-xs-center mt-4">
+
+      <v-flex xs12 class="text-xs-center">
+        <h2>Specify Search Options</h2>
+      </v-flex>
+      <v-flex xs4 offset-xs1>
+        <!-- Country -->
+        <v-text-field
+          name="input-1"
+          label="Country"
+          v-model="country"
+          @input="triggerQuery('country')"
+        ></v-text-field>
+        <suggestion-dropdown type="country" :suggestionArray="countrySuggestions" v-if="Object.keys(countrySuggestions).length !== 0" @selected="selectItem"></suggestion-dropdown>
+        <!-- City -->
+        <v-text-field
+          name="input-1"
+          label="City"
+          v-model="city"
+          @input="triggerQuery('city')"
+        ></v-text-field>
+        <suggestion-dropdown type="city" :suggestionArray="citySuggestions" v-if="Object.keys(citySuggestions).length !== 0" @selected="selectItem"></suggestion-dropdown>
+      </v-flex>
+      <v-flex xs4 offset-xs2>
+        <!-- Language -->
+        <v-text-field
+          name="input-1"
+          label="Language"
+          v-model="language"
+        ></v-text-field>
+        <!-- Device -->
+        <v-text-field
+          name="input-1"
+          label="Device"
+          v-model="device"
+        ></v-text-field>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>
@@ -42,6 +74,8 @@
         // strings for v-model input
         city: '',
         country: '',
+        language: '',
+        device: '',
         // selected Items
         selectedCountry: '',
         selectedCity: '',
